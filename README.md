@@ -398,3 +398,38 @@ taskkill /f /pid <PID>
 Git Bash에서 경로 왜곡 오류(`잘못된 인수/옵션`)가 발생할 경우 아래와 같이 접두어를 붙여 실행합니다.
 \`\`\`bash
 MSYS_NO_PATHCONV=1 taskkill /f /pid <PID>
+## 💾 데이터 손실 방지 및 저장소 관리 대안 (Volume vs Bind Mount & Backup)
+
+도커 컨테이너는 기본적으로 삭제될 때 내부 데이터도 함께 소멸하므로, 영구 데이터 보존을 위해 **볼륨(Volume)** 또는 **바인드 마운트(Bind Mount)**를 사용해야 합니다.
+
+---
+
+### 1. 볼륨(Volume) vs 바인드 마운트(Bind Mount) 비교
+
+| 구분 | 볼륨 (Docker Volume) | 바인드 마운트 (Bind Mount) |
+| :--- | :--- | :--- |
+| **저장 위치** | 도커가 관리하는 호스트 내 전용 영역 (`/var/lib/docker/volumes/...`) | 사용자가 지정한 호스트의 임의 디렉토리 경로 (`$(pwd)` 등) |
+| **주요 용도** | 데이터베이스 저장 등 **영구성 및 독립성**이 중요한 데이터 | 소스 코드 실시간 반영 등 **개발/디버깅** 환경 |
+| **장점** | • 도커 엔진에 의해 안전하게 관리됨<성능 및 보안 우수><br>• 운영체제 간 호환성 높음 | • 호스트 파일 시스템과 직접 연동되어 즉각적인 수정 및 확인 가능 |
+| **단점** | • 호스트 파일 시스템에서 직접 접근 및 수정이 다소 번거로움 | • 호스트 권한 설정에 따라 보안 취약점 발생 가능<br>• OS 환경(Windows/Linux)에 따라 경로 문제 발생 가능 |
+
+---
+
+### 2. 데이터 손실 방지를 위한 백업 권장 절차
+
+중요한 데이터(DB 등)가 담긴 도커 볼륨은 장애 발생 시 데이터 손실을 막기 위해 주기적으로 백업해야 합니다.
+
+#### ① 도커 볼륨 데이터를 아카이브(tar) 파일로 백업하기
+\`\`\`bash
+# 1. 볼륨(my_volume)의 데이터를 임시 컨테이너를 통해 압축하여 백업 파일(backup.tar)로 추출
+docker run --rm -v my_volume:/volume -v $(pwd):/backup alpine tar -czf /backup/backup.tar -C /volume .
+\`\`\`
+* *Verification:* 현재 디렉토리(`$(pwd)`)에 `backup.tar` 파일이 정상적으로 생성되었는지 확인합니다.
+
+#### ② 백업 파일로부터 볼륨 복원하기 (Restore)
+\`\`\`bash
+# 1. 빈 볼륨 생성
+docker volume create restored_volume
+
+# 2. 백업 파일의 내용을 복원용 볼륨에 압축 해제
+docker run --rm -v restored_volume:/volume -v $(pwd):/backup alpine tar -xzf /backup/backup.tar -C /volume
