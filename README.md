@@ -36,3 +36,30 @@ drwxr-xr-x 1 User 197121 0 Nov  2 09:10 src
 # 파일 이동 및 삭제 테스트
 $ mv test.txt backup/
 $ rm -rf backup/
+## 📂 파일 및 디렉토리 관리 실습 (항목 #1)
+
+### 1. 파일 및 디렉토리 생성
+```bash
+$mkdir -p src backup$ touch README.md test.txt
+$ ls -la
+total 8
+drwxr-xr-x 1 User 197121 0 Nov  2 09:10 .
+drwxr-xr-x 1 User 197121 0 Nov  2 09:05 ..
+drwxr-xr-x 1 User 197121 0 Nov  2 09:10 backup
+-rw-r--r-- 1 User 197121 0 Nov  2 09:10 README.md
+drwxr-xr-x 1 User 197121 0 Nov  2 09:10 src
+-rw-r--r-- 1 User 197121 0 Nov  2 09:10 test.txt
+## 📂 파일 및 디렉토리 관리 실습 결과 (항목 #1)
+
+### 1. 디렉토리 및 파일 목록 확인 (ls -la)
+```bash
+$ ls -la
+total 14
+drwxr-xr-x 1 AONINNI 197121    0 Nov  2 21:47  ./
+drwxr-xr-x 1 AONINNI 197121    0 Nov  2 21:19  ../
+drwxr-xr-x 1 AONINNI 197121    0 Nov  2 21:43  .git/
+-rw-r--r-- 1 AONINNI 197121   56 Nov  2 21:19  Dockerfile
+-rw-r--r-- 1 AONINNI 197121 1977 Nov  2 21:46  README.md
+drwxr-xr-x 1 AONINNI 197121    0 Nov  2 16:50 'backup$'/
+drwxr-xr-x 1 AONINNI 197121    0 Nov  2 16:50  mv/
+-rw-r--r-- 1 AONINNI 197121   13 Nov  2 21:19  script.sh
