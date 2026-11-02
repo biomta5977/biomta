@@ -1,19 +1,32 @@
 # Biomta Development Workstation Setup, Verification & Troubleshooting Report
 
-## 1. 환경 설정 및 Git 원격 연동 (항목 #9, #10 PASS)
-- **OS**: Windows (Git Bash 환경)
-- **Working Directory (`~/Desktop/biomta`)**: 프로젝트 루트 디렉토리
-- **디렉토리 구조 및 목적**:
-  - `README.md`: 프로젝트 및 실습 수행 결과 리포트 (규칙 및 모듈별 문서화 기준 준수)
-  - `Dockerfile`: 커스텀 컨테이너 이미지 빌드를 위한 설정 파일
-  - `src/`: 소스 코드 및 테스트 파일 저장소
-- **Git Global Config 및 원격 연동 증거**:
-  - User Name: 손경남
-  - User Email: atom_bit@naver.com
-```bash
-$ git remote -v
-origin  [https://github.com/biomta5977/biomta.git](https://github.com/biomta5977/biomta.git) (fetch)
-origin  [https://github.com/biomta5977/biomta.git](https://github.com/biomta5977/biomta.git) (push)
+## 1. 실행 환경
+- OS: Windows (Git Bash 환경)
+- Shell: bash
+- Docker: 29.9.2
+- Git: latest (Global Config configured)
 
-$ git log -n 1 --oneline
-b70140f docs: update complete 18 items verification report
+---
+
+## 2. 수행 체크리스트
+- [x] 터미널 기본 조작 및 폴더 구성
+- [x] 권한 변경 실습 (rwx / 755)
+- [x] Docker 설치/점검 (version & info)
+- [x] hello-world 실행
+- [x] Docker images / ps -a 운영
+- [x] Dockerfile 빌드/실행
+- [x] 포트 매핑 접속 (8080:80)
+- [x] 볼륨 영속성 검증
+- [x] Git 설정 + GitHub 연동 및 푸시 완료
+
+---
+
+## 3. 수행 로그 및 검증 방법
+
+### ① 터미널 기본 조작 및 경로 관리
+```bash
+$ pwd
+/c/Users/User/Desktop/biomta
+$mkdir -p src backup$ touch README.md test.txt
+$ ls -la
+
