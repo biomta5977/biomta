@@ -163,3 +163,19 @@ ab3db06a60df   hello-world   "/hello"   9 minutes ago    Exited (0) 9 minutes ag
 \`\`\`text
 IMAGE               ID             DISK USAGE     CONTENT SIZE    EXTRA
 hello-world:latest  c567b231f656   25.9kB         9.49kB          U
+## Docker 커스텀 이미지 빌드 증거 (`docker build`)
+
+### 1. 빌드 실행 명령어
+\`\`\`bash
+docker build -t biomta-app:latest .
+\`\`\`
+
+### 2. 빌드 실행 결과 (로그)
+\`\``text
+[+] Building 11.0s (7/7) FINISHED    docker:desktop-linux
+ => [internal] load build definition from Dockerfile                          0.0s
+ => [1/3] FROM docker.io/library/ubuntu:latest                               6.2s
+ => [2/3] WORKDIR /app                                                       0.1s
+ => [3/3] RUN echo 'Hello Biomta'                                            0.2s
+ => exporting to image                                                       1.9s
+ => => naming to docker.io/library/biomta-app:latest                         0.0s
