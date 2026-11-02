@@ -63,3 +63,10 @@ drwxr-xr-x 1 AONINNI 197121    0 Nov  2 21:43  .git/
 drwxr-xr-x 1 AONINNI 197121    0 Nov  2 16:50 'backup$'/
 drwxr-xr-x 1 AONINNI 197121    0 Nov  2 16:50  mv/
 -rw-r--r-- 1 AONINNI 197121   13 Nov  2 21:19  script.sh
+## 🔒 권한 설정 및 파일 제어 실습 결과 (항목 #2, #15)
+
+### `chmod` 및 `ls -l` 실행 결과
+```bash
+$ chmod 755 script.sh
+$ ls -l script.sh
+-rwxr-xr-x 1 AONINNI 197121 13 Nov  2 21:19 script.sh
