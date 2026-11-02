@@ -207,3 +207,23 @@ font-family: Tahoma, Verdana, Arial, sans-serif; }
 ...
 </body>
 </html>
+## 볼륨 마운트 및 데이터 지속성 증거 (호스트 디렉토리 마운트 방식)
+
+### 1. 호스트 폴더 마운트 컨테이너 실행 및 디렉토리 생성 후 파일 작성
+\`\`\`bash
+docker run -d -v "$(pwd):/app" --name volume-test alpine sleep 3600
+docker exec -it volume-test sh -c "mkdir -p /app && echo 'Hello Biomta Volume Persistence' > /app/persistence.txt"
+\`\`\`
+
+### 2. 컨테이너 삭제 후 동일한 폴더로 새 컨테이너 재시작
+\`\`\`bash
+docker rm -f volume-test
+docker run -d -v "$(pwd):/app" --name volume-test-new alpine sleep 3600
+\`\`\`
+
+### 3. 데이터 보존 확인 결과 (`cat`)
+\`\`\`bash
+docker exec -it volume-test-new cat /app/persistence.txt
+\`\`\`
+\`\``text
+Hello Biomta Volume Persistence
