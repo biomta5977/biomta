@@ -109,3 +109,21 @@ Server:
  Kernel Version: 6.18.54.1-microsoft-standard-WSL2
  Operating System: Docker Desktop
  ...
+ ## Docker hello-world 실행 증거
+
+### 1. 실행 명령어
+\`\`\`bash
+docker run hello-world
+\`\`\`
+
+### 2. 실행 결과 출력 (로그)
+\`\``text
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the community Hub.
+    (amd64|v3)
+ 3. The Docker daemon created a new container from the code system.
+...
