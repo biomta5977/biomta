@@ -227,3 +227,79 @@ docker exec -it volume-test-new cat /app/persistence.txt
 \`\`\`
 \`\``text
 Hello Biomta Volume Persistence
+## 🚀 도커 환경 재현 가이드 (Reproducibility Guide)
+
+이 문서는 본 프로젝트의 Docker 환경(커스텀 빌드, 포트 매핑 웹 서비스, 볼륨 마운트 데이터 지속성)을 다른 환경에서 완벽하게 재현하고 검증하기 위한 단계별 절차입니다.
+
+---
+
+### 1. 사전 요구사항 (Prerequisites)
+- Docker Desktop이 설치되어 있고 실행 중인 상태여야 합니다.
+- Git Bash 또는 터미널 환경
+
+---
+
+### 2. 단계별 재현 및 검증 절차
+
+#### 단계 ①: 저장소 클론 및 프로젝트 폴더 이동
+\`\`\`bash
+git clone https://github.com/biomta5977/biomta.git
+cd biomta
+\`\`\`
+
+#### 단계 ②: 커스텀 Docker 이미지 빌드
+Dockerfile을 이용해 `biomta-app` 이미지를 빌드합니다.
+\`\`\`bash
+docker build -t biomta-app:latest .
+\`\`\`
+**[빌드 성공 출력 예시]**
+\`\``text
+[+] Building 11.0s (7/7) FINISHED    docker:desktop-linux
+ => [internal] load build definition from Dockerfile
+ => [1/3] FROM docker.io/library/ubuntu:latest
+ => [2/3] WORKDIR /app
+ => [3/3] RUN echo 'Hello Biomta'
+ => exporting to image
+ => => naming to docker.io/library/biomta-app:latest
+\`\``
+
+#### 단계 ③: 호스트 포트 매핑 테스트 (Nginx 웹 서버)
+호스트의 `8080`번 포트와 컨테이너의 `80`번 포트를 연결하여 웹 서비스를 실행합니다.
+\`\`\`bash
+docker run -d -p 8080:80 --name web-test nginx
+curl http://localhost:8080
+\`\`\`
+**[`curl` 출력 예시]**
+\`\``text
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, nginx is successfully installed and working.</p>
+</body>
+</html>
+\`\``
+*(테스트 완료 후 정리: `docker rm -f web-test`)*
+
+#### 단계 ④: 볼륨 마운트 및 데이터 지속성 테스트
+호스트 디렉토리를 마운트하여 컨테이너를 삭제해도 데이터가 안전하게 유지되는지 검증합니다.
+\`\`\`bash
+# 1. 볼륨 마운트 컨테이너 실행 및 테스트 파일 생성
+docker run -d -v "$(pwd):/app" --name volume-test alpine sleep 3600
+docker exec -it volume-test sh -c "mkdir -p /app && echo 'Hello Biomta Volume Persistence' > /app/persistence.txt"
+
+# 2. 기존 컨테이너 삭제 후, 동일한 경로로 새 컨테이너 재시작
+docker rm -f volume-test
+docker run -d -v "$(pwd):/app" --name volume-test-new alpine sleep 3600
+
+# 3. 데이터 지속성 확인 (cat)
+docker exec -it volume-test-new cat /app/persistence.txt
+\`\`\`
+**[데이터 지속성 확인 출력 예시]**
+\`\``text
+Hello Biomta Volume Persistence
+\`\``
+*(테스트 완료 후 정리: `docker rm -f volume-test-new`)*
