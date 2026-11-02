@@ -149,3 +149,17 @@ Share images, automate workflows, and more with a free Docker ID:
 
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
+
+## Docker 컨테이너 및 이미지 목록 증거
+
+### 1. 컨테이너 목록 (`docker ps -a`)
+\`\`\`text
+CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                     PORTS     NAMES
+6d1758250f78   hello-world   "/hello"   3 minutes ago    Exited (0) 3 minutes ago             hopeful_hodgkin
+ab3db06a60df   hello-world   "/hello"   9 minutes ago    Exited (0) 9 minutes ago             sleepy_shannon
+\`\`\`
+
+### 2. 이미지 목록 (`docker images`)
+\`\`\`text
+IMAGE               ID             DISK USAGE     CONTENT SIZE    EXTRA
+hello-world:latest  c567b231f656   25.9kB         9.49kB          U
