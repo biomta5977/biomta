@@ -70,3 +70,42 @@ drwxr-xr-x 1 AONINNI 197121    0 Nov  2 16:50  mv/
 $ chmod 755 script.sh
 $ ls -l script.sh
 -rwxr-xr-x 1 AONINNI 197121 13 Nov  2 21:19 script.sh
+## 🐳 Docker 버전 및 데몬 상태 검증 (항목 #3)
+
+### 1. Docker 버전 확인
+```bash
+$ docker --version
+Docker version 27.x.x, build ...
+## 🐳 Docker 버전 및 데몬 상태 검증 (항목 #3)
+
+### 1. Docker 버전 확인
+```bash
+$ docker --version
+Docker version 27.x.x, build ...
+## Docker 버전 및 데몬 상태 확인 증거
+
+### 1. 명령어 입력 및 출력 결과
+\`\`\`bash
+docker --version
+docker info
+\`\`\`
+
+### 2. 실행 결과 화면 (출력 내용)
+\`\``text
+Client:
+ Version:    29.9.2
+ Context:    desktop-linux
+ Debug Mode: false
+ ...
+Server:
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 0
+ Server Version: 29.9.2
+ Storage Driver: overlayfs
+ ...
+ Kernel Version: 6.18.54.1-microsoft-standard-WSL2
+ Operating System: Docker Desktop
+ ...
