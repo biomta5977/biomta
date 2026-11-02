@@ -179,3 +179,31 @@ docker build -t biomta-app:latest .
  => [3/3] RUN echo 'Hello Biomta'                                            0.2s
  => exporting to image                                                       1.9s
  => => naming to docker.io/library/biomta-app:latest                         0.0s
+ ## 호스트 포트 접속 증거 (`curl` / 브라우저)
+
+### 1. 포트 매핑 실행 명령어 (`-p 8080:80`)
+\`\`\`bash
+docker run -d -p 8080:80 --name web-test nginx
+\`\`\`
+
+### 2. 접속 테스트 명령어 및 출력 결과 (`curl http://localhost:8080`)
+\`\`\`bash
+curl http://localhost:8080
+\`\`\`
+\`\``text
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, nginx is successfully installed and working.</p>
+...
+</body>
+</html>
