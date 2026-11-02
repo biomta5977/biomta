@@ -433,3 +433,26 @@ docker volume create restored_volume
 
 # 2. 백업 파일의 내용을 복원용 볼륨에 압축 해제
 docker run --rm -v restored_volume:/volume -v $(pwd):/backup alpine tar -xzf /backup/backup.tar -C /volume
+## 🔍 도커 트러블슈팅 사례 연구 (Troubleshooting Case Study)
+
+도커 컨테이너 구동 중 발생할 수 있는 대표적인 문제 상황에 대한 가설 수립, 검증 명령, 조치 절차 및 결과 증거입니다.
+
+---
+
+### [Case 1] 컨테이너 포트 바인딩 실패 (`port is already allocated`)
+
+#### 1. 현상 및 증상
+- 도커 컨테이너를 실행(`docker run -p 8080:80`)할 때 다음과 같은 에러 발생
+  - `Error response from daemon: driver failed programming external connectivity on endpoint web_server: Bind for 0.0.0.0:8080 failed: port is already allocated`
+
+#### 2. 원인 가설
+- **가설 1**: 이미 다른 도커 컨테이너나 로컬 프로세스가 `8080` 포트를 선점하고 있다.
+
+#### 3. 검증 명령 및 결과 증거
+- **검증 명령 (포트 점유 프로세스 확인)**:
+  ```bash
+  # Windows CMD / PowerShell 환경
+  netstat -ano | findstr 8080
+  
+  # 출력 결과 (예시)
+  # TCP    0.0.0.0:8080    0.0.0.0:0    LISTENING    9384
