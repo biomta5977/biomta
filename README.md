@@ -456,3 +456,27 @@ docker run --rm -v restored_volume:/volume -v $(pwd):/backup alpine tar -xzf /ba
   
   # 출력 결과 (예시)
   # TCP    0.0.0.0:8080    0.0.0.0:0    LISTENING    9384
+  평가 항목 #18
+부족한 점
+트러블슈팅 사례(가설→확인→조치) 및 관련 증거 문서 누락
+보완
+문제 발생 시 가설·검증명령·조치·증거(로그/스크린샷)를 단계별로 남기세요
+## 🔍 도커 트러블슈팅 사례 연구 (Troubleshooting Case Study)
+
+도커 컨테이너를 운영하는 과정에서 발생한 문제를 **[현상 ➔ 가설 ➔ 검증 및 증거 ➔ 조치 및 결과]** 단계에 따라 해결한 기록입니다.
+
+---
+
+### [Case 1] 컨테이너 포트 바인딩 충돌 (`port is already allocated`)
+
+#### 1. 문제 현상 (Symptom)
+- 도커 컨테이너를 실행(`docker run -p 8080:80 ...`)할 때 아래와 같은 에러가 발생하며 실행이 실패함.
+  - `Error response from daemon: driver failed programming external connectivity on endpoint web_server: Bind for 0.0.0.0:8080 failed: port is already allocated`
+
+#### 2. 원인 가설 (Hypothesis)
+- **가설**: 로컬 호스트 컴퓨터의 `8080` 포트를 이미 다른 프로그램이나 기존에 실행 중인 다른 도커 컨테이너가 선점하고 있다.
+
+#### 3. 검증 명령 및 결과 증거 (Verification & Evidence)
+- **검증 명령 (포트 점유 프로세스 확인)**:
+  ```cmd
+  netstat -ano | findstr 8080
