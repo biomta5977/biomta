@@ -345,3 +345,56 @@ Hello Biomta Volume Persistence
 - **`7` (소유자)**: `rwx` ($4 + 2 + 1$)
 - **`5` (그룹)**: `r-x` ($4 + 0 + 1$)
 - **`5` (기타 사용자)**: `r-x` ($4 + 0 + 1$)
+## ⚠️ 포트 충돌 진단 및 해제 절차 (Port Conflict Resolution)
+
+도커 컨테이너나 로컬 서버를 실행할 때 "port is already allocated" 또는 "Address already in use" 에러가 발생할 경우, 포트를 점유 중인 프로세스를 진단하고 해제하는 절차입니다.
+
+### 1. 포트 점유 프로세스 확인 (`lsof` 또는 `netstat`)
+
+#### ① macOS / Linux 환경 (`lsof`)
+\`\`\`bash
+# 특정 포트(예: 8080)를 사용 중인 프로세스와 PID 확인
+lsof -i :8080
+\`\`\`
+
+#### ② Windows / Linux 공통 (`netstat`)
+\`\`\`bash
+# 리눅스 / Git Bash 환경
+netstat -ano | grep 8080
+
+# 윈도우 명령 프롬프트(CMD) 환경
+netstat -ano | findstr 8080
+\`\`\`
+*(명령어 실행 결과 출력된 목록의 맨 오른쪽에 표시되는 숫자가 **PID(프로세스 ID)**입니다.)*
+
+---
+
+### 2. 프로세스 상세 정보 확인 (`ps`)
+확인한 PID를 통해 이 프로세스가 어떤 프로그램인지 상세히 조회합니다.
+\`\`\`bash
+# Linux / macOS
+ps -ef | grep <PID>
+\`\`\`
+
+---
+
+### 3. 프로세스 강제 종료 및 포트 해제 (`kill` / `taskkill`)
+
+#### ① macOS / Linux / Git Bash 환경 (`kill`)
+\`\`\`bash
+# 정상 종료 (SIGTERM)
+kill <PID>
+
+# 응답이 없을 경우 강제 종료 (SIGKILL)
+kill -9 <PID>
+\`\`\`
+
+#### ② Windows 일반 CMD / PowerShell 환경 (`taskkill`)
+\`\`\`cmd
+taskkill /f /pid <PID>
+\`\`\`
+
+#### ③ Windows Git Bash 환경 (`MSYS_NO_PATHCONV`)
+Git Bash에서 경로 왜곡 오류(`잘못된 인수/옵션`)가 발생할 경우 아래와 같이 접두어를 붙여 실행합니다.
+\`\`\`bash
+MSYS_NO_PATHCONV=1 taskkill /f /pid <PID>
