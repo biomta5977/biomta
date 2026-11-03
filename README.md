@@ -456,7 +456,31 @@ docker logs biomta-container
 
 ![Docker 컨테이너 로그 확인 결과](10_docker_logs.png)
 
-## 15. 제출 전 최종 확인
+## 15. Docker 컨테이너 사용량 확인 실습
+
+실행 중인 Docker 컨테이너들의 CPU, 메모리, 네트워크 및 디스크 입출력 사용량을 확인했습니다.
+
+**실행 명령어**
+
+```cmd
+docker stats --no-stream
+```
+
+**실제 확인 결과**
+- 실행 중인 컨테이너 5개의 사용량을 확인했습니다.
+- CPU 사용률은 확인 시점에 모두 `0.00%`였습니다.
+- 메모리 사용량은 약 `4.246MiB`부터 `13.4MiB`까지 표시됐습니다.
+- 메모리 사용률은 약 `0.05%`부터 `0.17%`까지 표시됐습니다.
+
+`--no-stream` 옵션을 사용해 사용량 정보를 한 번 출력하고 명령이 종료되는 것을 확인했습니다.
+
+### Docker 사용량 확인 결과 캡처
+
+![Docker 컨테이너 사용량 확인 결과](11_docker_stats.png)
+
+---
+
+## 16. 제출 전 최종 확인
 
 - [x] README의 제목과 실습 설명 확인
 - [x] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
@@ -468,4 +492,5 @@ docker logs biomta-container
 - [x] 트러블슈팅 오류 및 해결 과정 화면 캡처 업로드 및 README 연결
 - [x] Ubuntu 컨테이너 실행 및 기본 명령어 실습 결과 캡처 업로드 및 README 연결
 - [x] Docker 컨테이너 로그 확인 결과 캡처 업로드 및 README 연결
+- [x] Docker 컨테이너 사용량 확인 결과 캡처 업로드 및 README 연결
 
