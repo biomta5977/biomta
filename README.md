@@ -482,4 +482,4 @@ docker run --rm -v restored_volume:/volume -v $(pwd):/backup alpine tar -xzf /ba
   netstat -ano | findstr 8080
 ### Docker 웹 서버 실행 결과
 
-![Docker 웹 서버 실행 화면](05_docker_web_server.png)
+[Docker 웹 서버 실행 화면](05_docker_web_server.png)
