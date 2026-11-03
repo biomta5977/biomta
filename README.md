@@ -345,37 +345,64 @@ docker run --rm -v restored_volume:/volume -v "$(pwd):/backup" alpine tar -xzf /
 
 ## 12. 트러블슈팅 사례 기록
 
-### Case 1. 컨테이너 포트 바인딩 충돌
+### Case 1. Docker 컨테이너 포트 충돌 및 해결 (실제 실행 확인)
 
 **문제 현상**
 
-`docker run -p 8080:80` 실행 시 8080 포트가 이미 사용 중이라는 오류가 발생할 수 있습니다.
+Windows CMD에서 아래 명령으로 Nginx 컨테이너를 실행하려 했으나 실패했습니다.
+
+```cmd
+docker run -d -p 8080:80 --name port-test nginx
+```
+
+실제 오류 메시지:
+
+```text
+Bind for 0.0.0.0:8080 failed: port is already allocated
+```
 
 **원인 가설**
 
-다른 컨테이너 또는 로컬 프로그램이 호스트의 8080 포트를 사용하고 있을 수 있습니다.
+호스트 PC의 8080 포트를 이미 실행 중인 다른 Docker 컨테이너가 사용하고 있다고 판단했습니다.
 
-**검증 명령**
+**검증**
 
 ```cmd
-netstat -ano | findstr 8080
+docker ps
 ```
 
-**조치 절차**
+실행 중인 컨테이너 목록에서 다음 항목을 확인했습니다.
 
-1. 출력에서 PID를 확인합니다.
-2. 작업 관리자 또는 `tasklist`로 프로세스를 확인합니다.
-3. 불필요한 프로세스인지 확인한 뒤 종료하거나, Docker 실행 포트를 다른 번호로 변경합니다.
-
-예를 들어 호스트 포트를 8081로 바꿀 수 있습니다.
-
-```bash
-docker run -d -p 8081:80 --name web-test-8081 nginx
+```text
+biomta-container   0.0.0.0:8080->80/tcp
+biomta-mount       0.0.0.0:8081->80/tcp
 ```
 
-**실제 증거 추가 필요:** 오류가 발생한 화면, 포트 확인 결과, 조치 후 브라우저 접속 화면을 캡처해 이 항목에 추가하세요. 현재 README에는 실제 오류 로그와 조치 후 결과가 모두 확인된 상태가 아니므로 완료된 사례로 단정하지 않습니다.
+따라서 기존 `biomta-container`가 호스트의 8080 포트를 사용 중인 것이 원인이었습니다.
 
----
+**조치**
+
+1. 첫 번째 실행 시도에서 생성된 실습용 컨테이너 이름이 남아 있어 `docker rm port-test`로 해당 실습용 컨테이너만 삭제했습니다.
+2. 기존 과제 컨테이너는 중지하거나 삭제하지 않았습니다.
+3. 사용 중인 8080 대신 8082 포트로 변경해 다시 실행했습니다.
+
+```cmd
+docker rm port-test
+docker run -d -p 8082:80 --name port-test nginx
+docker ps
+```
+
+**해결 확인 결과**
+
+두 번째 실행 명령은 컨테이너 ID를 반환했고, `docker ps`에서 다음 결과를 확인했습니다.
+
+```text
+fa26715decbc   nginx   Up   0.0.0.0:8082->80/tcp   port-test
+```
+
+**결론**
+
+8080 포트를 사용 중인 기존 컨테이너와 포트가 겹쳐 발생한 오류였습니다. 호스트 포트를 8082로 변경하자 새 Nginx 컨테이너가 정상 실행되었습니다. 기존 `biomta-container`와 `biomta-mount`는 그대로 유지했습니다.
 
 ## 13. 제출 전 최종 확인
 
@@ -385,5 +412,6 @@ docker run -d -p 8081:80 --name web-test-8081 nginx
 - [ ] GitHub README 화면에서 이미지가 정상 표시되는지 확인
 - [ ] Named Volume 실습 결과 캡처 추가
 - [x] Docker 네트워크 실습 결과 캡처 업로드 및 README 연결
-- [ ] 트러블슈팅 실제 검증 및 조치 결과 추가
+- [x] 트러블슈팅 실제 검증 및 조치 결과 README에 기록
+- [ ] 트러블슈팅 오류 및 해결 과정 화면 캡처 업로드
 
