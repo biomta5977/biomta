@@ -85,6 +85,10 @@ docker --version
 docker info
 ```
 
+### Docker 버전 확인 캡처
+
+![Docker 버전 확인 결과](03_docker_version.png)
+
 기존에 기록한 `docker info` 결과 중 확인 가능한 항목:
 
 ```text
