@@ -404,13 +404,17 @@ fa26715decbc   nginx   Up   0.0.0.0:8082->80/tcp   port-test
 
 8080 포트를 사용 중인 기존 컨테이너와 포트가 겹쳐 발생한 오류였습니다. 호스트 포트를 8082로 변경하자 새 Nginx 컨테이너가 정상 실행되었습니다. 기존 `biomta-container`와 `biomta-mount`는 그대로 유지했습니다.
 
+### Docker 포트 충돌 해결 결과 캡처
+
+![Docker 포트 충돌 트러블슈팅 결과](08_docker_troubleshooting.png)
+
 ## 13. 제출 전 최종 확인
 
-- [ ] README의 제목과 실습 설명 확인
-- [ ] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
-- [ ] `05_docker_web_server.png`가 저장소에 존재하는지 확인
-- [ ] GitHub README 화면에서 이미지가 정상 표시되는지 확인
-- [ ] Named Volume 실습 결과 캡처 추가
+- [x] README의 제목과 실습 설명 확인
+- [x] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
+- [x] `05_docker_web_server.png`가 저장소에 존재하는지 확인
+- [x] GitHub README 화면에서 이미지가 정상 표시되는지 확인
+- [x] Named Volume 실습 결과 캡처 업로드 및 README 연결
 - [x] Docker 네트워크 실습 결과 캡처 업로드 및 README 연결
 - [x] 트러블슈팅 실제 검증 및 조치 결과 README에 기록
 - [x] 트러블슈팅 오류 및 해결 과정 화면 캡처 업로드 및 README 연결
