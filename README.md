@@ -181,26 +181,29 @@ Hello Biomta Volume Persistence
 
 이 방식은 호스트 폴더에 파일이 저장되므로 컨테이너를 삭제하고 다시 만들어도 파일을 유지할 수 있습니다.
 
-### Docker Named Volume 실습 (추가 확인용)
+### Docker Named Volume 실습 (실제 실행 확인)
 
-Named Volume은 Docker가 관리하는 저장 공간입니다. 아래 명령은 별도 실습을 수행할 때 사용합니다.
+Named Volume은 Docker가 관리하는 저장 공간입니다. Windows CMD에서 아래 명령을 실제 실행했습니다.
 
-```bash
-docker volume create biomta-data
-docker run -d --name volume-demo -v biomta-data:/data alpine sleep 3600
-docker exec volume-demo sh -c "echo 'Named Volume Test' > /data/test.txt"
-docker rm -f volume-demo
-docker run -d --name volume-demo2 -v biomta-data:/data alpine sleep 3600
-docker exec volume-demo2 cat /data/test.txt
+```cmd
+docker volume ls
+docker run --rm -v my-volume:/data alpine sh -c "echo 'Docker Named Volume 실습 성공' > /data/test.txt"
+docker run --rm -v my-volume:/data alpine cat /data/test.txt
 ```
 
-정상 확인 시 출력:
+Volume 목록에서 `my-volume`을 확인했고, 파일을 저장한 뒤 다시 읽었을 때 다음 결과가 출력되었습니다.
 
 ```text
-Named Volume Test
+Docker Named Volume 실습 성공
 ```
 
-> 위 Named Volume 명령과 출력은 재현을 위한 예시입니다. 실제 실행 후 터미널 캡처를 추가해야 완료 증거가 됩니다.
+**실행 증거:** 2026-11-04에 CMD 화면 캡처를 완료했습니다. 캡처 이미지 파일을 저장소에 업로드한 후 아래 이미지 경로를 연결해야 합니다.
+
+```markdown
+![Docker Named Volume 실습 결과](06_docker_named_volume.png)
+```
+
+> `my_volume`도 Volume 목록에 있었지만, 이번 실습에서 실제 사용한 이름은 `my-volume`입니다.
 
 ---
 
