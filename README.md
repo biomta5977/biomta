@@ -408,7 +408,34 @@ fa26715decbc   nginx   Up   0.0.0.0:8082->80/tcp   port-test
 
 ![Docker 포트 충돌 트러블슈팅 결과](08_docker_troubleshooting.png)
 
-## 13. 제출 전 최종 확인
+## 13. Ubuntu 컨테이너 실행 및 기본 명령어 실습
+
+사용자 정의 이미지 `biomta-app:latest`를 실행해 Ubuntu 컨테이너 내부에 접속하고, 기본 Linux 명령어를 실습했습니다.
+
+**실행 명령어**
+
+```cmd
+docker run --rm -it biomta-app:latest
+```
+
+**실습한 명령어 및 결과**
+
+| 명령어 | 확인 내용 | 결과 |
+|---|---|---|
+| `pwd` | 현재 작업 폴더 확인 | `/app` |
+| `ls -la` | 폴더 내 파일 목록 확인 | 정상 실행 |
+| `echo "Hello Biomta Docker!" > test.txt` | 파일 생성 및 내용 저장 | 정상 실행 |
+| `cat test.txt` | 파일 내용 확인 | `Hello Biomta Docker!` |
+
+**결과:** Ubuntu 컨테이너에 접속하고 작업 폴더를 확인했으며, 컨테이너 내부에서 파일 생성과 내용 읽기가 정상적으로 수행됐습니다.
+
+### Ubuntu 컨테이너 실습 결과 캡처
+
+![Ubuntu 컨테이너 실행 및 파일 생성 결과](09_ubuntu_container.png)
+
+---
+
+## 14. 제출 전 최종 확인
 
 - [x] README의 제목과 실습 설명 확인
 - [x] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
@@ -418,4 +445,5 @@ fa26715decbc   nginx   Up   0.0.0.0:8082->80/tcp   port-test
 - [x] Docker 네트워크 실습 결과 캡처 업로드 및 README 연결
 - [x] 트러블슈팅 실제 검증 및 조치 결과 README에 기록
 - [x] 트러블슈팅 오류 및 해결 과정 화면 캡처 업로드 및 README 연결
+- [x] Ubuntu 컨테이너 실행 및 기본 명령어 실습 결과 캡처 업로드 및 README 연결
 
