@@ -40,6 +40,12 @@ rm -rf backup/
 
 ---
 
+### 프로젝트 디렉토리 구성 캡처
+
+![프로젝트 디렉토리 구성](01_project_directory.png)
+
+---
+
 ## 2. 파일 권한 설정 실습
 
 `chmod` 명령으로 셸 스크립트에 실행 권한을 부여합니다.
@@ -54,6 +60,10 @@ ls -l script.sh
 ```text
 -rwxr-xr-x 1 AONINNI 197121 13 Nov  2 21:19 script.sh
 ```
+
+### 파일 권한 확인 캡처
+
+![파일 권한 확인 결과](02_file_permission.png)
 
 ### 권한 숫자의 의미
 
