@@ -232,17 +232,36 @@ docker network ls
 docker network inspect bridge
 ```
 
-### 사용자 정의 네트워크 실습 (추가 확인용)
+### 사용자 정의 네트워크 실습 (실제 실행 확인)
 
-```bash
+Windows CMD에서 사용자 정의 네트워크를 만들고, Nginx 컨테이너와 테스트용 BusyBox 컨테이너를 같은 네트워크에 연결했습니다.
+
+실행한 명령:
+
+```cmd
 docker network create biomta-net
-docker run -d --name biomta-nginx --network biomta-net nginx
-docker network inspect biomta-net
-docker rm -f biomta-nginx
-docker network rm biomta-net
+docker network ls
+docker run -d --name biomta-web --network biomta-net nginx
+docker run --rm --network biomta-net busybox ping -c 3 biomta-web
 ```
 
-> 위 명령은 재현을 위한 실습 절차입니다. 실제 수행 결과를 증명하려면 실행 화면을 캡처해 추가하세요.
+BusyBox가 로컬에 없어 처음 실행할 때 Docker Hub에서 이미지를 내려받았으며, 이후 컨테이너 이름인 `biomta-web`을 대상으로 ping 테스트를 진행했습니다.
+
+실제 확인 결과:
+
+```text
+PING biomta-web (172.18.0.2): 56 data bytes
+64 bytes from 172.18.0.2: seq=0 ttl=64 time=0.674 ms
+64 bytes from 172.18.0.2: seq=1 ttl=64 time=0.065 ms
+64 bytes from 172.18.0.2: seq=2 ttl=64 time=0.075 ms
+
+--- biomta-web ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+```
+
+**결과:** 3개 패킷을 보내 3개 모두 수신했고, 패킷 손실률은 0%였습니다. 같은 사용자 정의 네트워크에 연결된 컨테이너끼리 이름으로 통신할 수 있음을 확인했습니다.
+
+> 실행 증거 캡처 파일은 GitHub 저장소에 추가한 뒤 아래에 연결합니다.
 
 ---
 
@@ -362,6 +381,6 @@ docker run -d -p 8081:80 --name web-test-8081 nginx
 - [ ] `05_docker_web_server.png`가 저장소에 존재하는지 확인
 - [ ] GitHub README 화면에서 이미지가 정상 표시되는지 확인
 - [ ] Named Volume 실습 결과 캡처 추가
-- [ ] Docker 네트워크 실습 결과 캡처 추가
+- [ ] Docker 네트워크 실습 결과 캡처 파일을 저장소에 업로드하고 README에 연결
 - [ ] 트러블슈팅 실제 검증 및 조치 결과 추가
 
