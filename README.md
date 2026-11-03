@@ -558,7 +558,36 @@ docker image inspect biomta-app:latest
 
 ---
 
-## 19. 제출 전 최종 확인
+## 19. Docker 시스템 정보 확인 실습
+
+Docker 엔진과 실행 환경의 상세 정보를 확인했습니다.
+
+**실행 명령어**
+
+```cmd
+docker info
+```
+
+**실제 확인 결과**
+- Docker Client/Server 버전: 29.9.2
+- 실행 환경: Docker Desktop
+- 운영체제: Linux
+- 아키텍처: x86_64
+- CPU: 12개
+- 메모리: 약 7.723GiB
+- 실행 중인 컨테이너: 5개
+
+### Docker 시스템 정보 확인 결과 캡처
+
+![Docker info 결과 1](15_docker_info_1.png)
+
+![Docker info 결과 2](15_docker_info_2.png)
+
+![Docker info 결과 3](15_docker_info_3.png)
+
+---
+
+## 20. 제출 전 최종 확인
 
 - [x] README의 제목과 실습 설명 확인
 - [x] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
@@ -574,4 +603,5 @@ docker image inspect biomta-app:latest
 - [x] Docker Hello World 실행 결과 캡처 업로드 및 README 연결
 - [x] Docker exec 컨테이너 내부 명령어 실행 결과 캡처 업로드 및 README 연결
 - [x] Docker 이미지 상세 정보 확인 결과 캡처 업로드 및 README 연결
+- [x] Docker 시스템 정보 확인 결과 캡처 업로드 및 README 연결
 
