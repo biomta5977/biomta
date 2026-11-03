@@ -480,3 +480,6 @@ docker run --rm -v restored_volume:/volume -v $(pwd):/backup alpine tar -xzf /ba
 - **검증 명령 (포트 점유 프로세스 확인)**:
   ```cmd
   netstat -ano | findstr 8080
+### Docker 웹 서버 실행 결과
+
+![Docker 웹 서버 실행 화면](05_docker_web_server.png)
