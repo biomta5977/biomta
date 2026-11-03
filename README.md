@@ -505,7 +505,33 @@ Docker 클라이언트와 데몬의 통신, Docker Hub 이미지 다운로드, �
 
 ---
 
-## 17. 제출 전 최종 확인
+## 17. Docker exec 컨테이너 내부 명령어 실행 실습
+
+실행 중인 Ubuntu 기반 컨테이너 `awesome_ellis` 내부에서 `docker exec` 명령어로 별도의 셸 접속 없이 명령어를 실행했습니다.
+
+**실행한 명령어**
+
+```cmd
+docker exec awesome_ellis pwd
+docker exec awesome_ellis ls -la /app
+docker exec awesome_ellis cat /app/test.txt
+```
+
+**실제 확인 결과**
+
+- 현재 작업 폴더: `/app`
+- `/app` 폴더에서 `test.txt` 파일 확인
+- 파일 내용: `Hello Biomta Docker!`
+
+**결과:** 실행 중인 컨테이너에 `docker exec` 명령을 사용해 현재 경로, 파일 목록 및 파일 내용을 정상적으로 확인했습니다. 기존 컨테이너를 중지하거나 삭제하지 않고 실습했습니다.
+
+### Docker exec 실습 결과 캡처
+
+![Docker exec 컨테이너 내부 명령어 실행 결과](13_docker_exec.png)
+
+---
+
+## 18. 제출 전 최종 확인
 
 - [x] README의 제목과 실습 설명 확인
 - [x] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
@@ -519,4 +545,5 @@ Docker 클라이언트와 데몬의 통신, Docker Hub 이미지 다운로드, �
 - [x] Docker 컨테이너 로그 확인 결과 캡처 업로드 및 README 연결
 - [x] Docker 컨테이너 사용량 확인 결과 캡처 업로드 및 README 연결
 - [x] Docker Hello World 실행 결과 캡처 업로드 및 README 연결
+- [x] Docker exec 컨테이너 내부 명령어 실행 결과 캡처 업로드 및 README 연결
 
