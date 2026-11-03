@@ -197,11 +197,9 @@ Volume 목록에서 `my-volume`을 확인했고, 파일을 저장한 뒤 다시 
 Docker Named Volume 실습 성공
 ```
 
-**실행 증거:** 2026-11-04에 CMD 화면 캡처를 완료했습니다. 캡처 이미지 파일을 저장소에 업로드한 후 아래 이미지 경로를 연결해야 합니다.
+**실행 증거:** 2026-11-04 CMD 화면 캡처를 저장소에 업로드했습니다.
 
-```markdown
 ![Docker Named Volume 실습 결과](06_docker_named_volume.png)
-```
 
 > `my_volume`도 Volume 목록에 있었지만, 이번 실습에서 실제 사용한 이름은 `my-volume`입니다.
 
