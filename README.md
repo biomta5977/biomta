@@ -413,5 +413,5 @@ fa26715decbc   nginx   Up   0.0.0.0:8082->80/tcp   port-test
 - [ ] Named Volume 실습 결과 캡처 추가
 - [x] Docker 네트워크 실습 결과 캡처 업로드 및 README 연결
 - [x] 트러블슈팅 실제 검증 및 조치 결과 README에 기록
-- [ ] 트러블슈팅 오류 및 해결 과정 화면 캡처 업로드
+- [x] 트러블슈팅 오류 및 해결 과정 화면 캡처 업로드 및 README 연결
 
