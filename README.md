@@ -48,7 +48,7 @@ rm -rf backup/
 
 ## 2. 파일 권한 설정 실습
 
-`chmod` 명령으로 셸 스크립트에 실행 권한을 부여합니다.
+`script.sh`는 실행 가능한 Bash 스크립트 형식으로 정리했습니다. `chmod` 명령으로 셸 스크립트에 실행 권한을 부여합니다.
 
 ```bash
 chmod 755 script.sh
@@ -58,8 +58,10 @@ ls -l script.sh
 기존 저장소에 기록된 권한 확인 결과:
 
 ```text
--rwxr-xr-x 1 AONINNI 197121 13 Nov  2 21:19 script.sh
+-rwxr-xr-x 1 AONINNI 197121 ... script.sh
 ```
+
+> 위 권한 출력은 기존 캡처에 기록된 상태입니다. 스크립트 내용 수정 후에도 실행 권한이 유지되는지는 로컬에서 다시 확인해야 합니다.
 
 ### 파일 권한 확인 캡처
 
@@ -139,7 +141,27 @@ docker build -t biomta-app:latest .
 docker images
 ```
 
-**실제 빌드 기록 확인:** `docker history biomta-app:latest` 명령으로 `WORKDIR /app` 및 `RUN echo 'Hello Biomta'` 빌드 단계를 확인했습니다.
+**Dockerfile 보완:** Ubuntu 기반 이미지에 `APP_NAME=Biomta` 환경 변수와 `/app/hello.txt` 파일을 추가했습니다. 기본 실행 명령은 `bash`로 유지했습니다. 이 변경은 저장소에 반영됐으며, 새 이미지의 빌드 및 실행 검증은 로컬에서 다시 수행해야 합니다.
+
+새 Dockerfile의 주요 구성:
+
+```dockerfile
+FROM ubuntu:latest
+WORKDIR /app
+ENV APP_NAME=Biomta
+RUN printf 'Hello Biomta Docker!\\n' > /app/hello.txt \\
+    && chmod 644 /app/hello.txt
+CMD ["bash"]
+```
+
+재빌드 및 검증 명령:
+
+```cmd
+docker build -t biomta-app:latest .
+docker run --rm biomta-app:latest bash -c "echo %APP_NAME% && cat /app/hello.txt"
+```
+
+> 위 명령은 Windows CMD 예시입니다. 재빌드 후 실제 출력과 새 캡처를 확인하기 전까지 빌드 성공으로 표시하지 않습니다.
 
 ### Docker 이미지 빌드 기록 캡처
 
@@ -723,8 +745,8 @@ git version 2.56.0.windows.4
 - [ ] **컨테이너 접속 방식:** `docker attach`와 `docker exec`의 차이 및 사용 상황 설명 추가
 - [ ] **Bind Mount 검증:** 호스트 파일을 수정한 전·후 내용과 컨테이너에서 변경 내용이 반영되는지 확인한 결과 정리
 - [ ] **두 번째 트러블슈팅:** 기존 포트 충돌 사례와 별개인 문제 해결 사례를 실제 실행하고 원인·조치·검증 결과 기록
-- [ ] **Dockerfile 커스텀 기능:** 현재 Ubuntu 기반 Dockerfile에 과제의 커스텀 이미지 요건을 더 명확히 충족하는 기능을 추가하고, 빌드 및 실행 결과 검증
-- [ ] **README 환경 정보 정정:** 실제 사용 환경인 Windows CMD와 Docker Desktop 기준으로 설명을 일치시키고, 예시 명령과 실제 실행 결과를 구분
+- [x] **Dockerfile 커스텀 기능 추가:** Ubuntu 이미지에 환경 변수와 샘플 파일 생성 기능을 추가 (새 Docker 이미지의 재빌드 및 실행 검증은 미완료)
+- [x] **README 환경 정보 정정:** Windows CMD와 Docker Desktop 기준으로 정리하고, 예시 명령과 실제 실행 결과를 구분
 
 > 보완 작업은 기존에 업로드된 캡처와 기록을 우선 활용합니다. 이미 확인된 실습을 반복하거나 같은 캡처를 다시 요구하지 않으며, 실제로 부족한 항목만 추가합니다.
 
