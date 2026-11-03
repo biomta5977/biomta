@@ -141,7 +141,7 @@ docker build -t biomta-app:latest .
 docker images
 ```
 
-**Dockerfile 보완:** Ubuntu 기반 이미지에 `APP_NAME=Biomta` 환경 변수와 `/app/hello.txt` 파일을 추가했습니다. 기본 실행 명령은 `bash`로 유지했습니다. 이 변경은 저장소에 반영됐으며, 새 이미지의 빌드 및 실행 검증은 로컬에서 다시 수행해야 합니다.
+**Dockerfile 보완 및 검증 완료:** Ubuntu 기반 이미지에 `APP_NAME=Biomta` 환경 변수와 `/app/hello.txt` 파일을 추가했습니다. 2026-11-04 로컬에서 이미지를 다시 빌드하고 실행해 `Biomta`와 `Hello Biomta Docker!` 출력까지 확인했습니다.
 
 새 Dockerfile의 주요 구성:
 
@@ -158,10 +158,10 @@ CMD ["bash"]
 
 ```cmd
 docker build -t biomta-app:latest .
-docker run --rm biomta-app:latest bash -c "echo %APP_NAME% && cat /app/hello.txt"
+docker run --rm biomta-app:latest bash -c "echo $APP_NAME && cat /app/hello.txt"
 ```
 
-> 위 명령은 Windows CMD 예시입니다. 재빌드 후 실제 출력과 새 캡처를 확인하기 전까지 빌드 성공으로 표시하지 않습니다.
+> 위 명령은 Windows CMD에서 실제 실행했으며, 출력은 `Biomta`와 `Hello Biomta Docker!`였습니다.
 
 ### Docker 이미지 빌드 기록 캡처
 
@@ -737,18 +737,90 @@ git version 2.56.0.windows.4
 
 ## 25. 과제 미션 대비 추가 보완 목록
 
-현재 제출된 README와 업로드된 파일을 기준으로 확인한 추가 보완 사항입니다. 아래 항목은 아직 완료된 것으로 표시하지 않았으며, 실제 확인 및 증거 확보 후 체크할 예정입니다.
+현재 제출된 README와 로컬 실습 결과를 대조한 보완 현황입니다. 완료한 항목은 실제 실행 결과를 확인한 뒤 체크했습니다.
 
-- [ ] **Git 설정 및 VS Code 연동:** `git config --list`로 사용자 이름, 이메일, 기본 브랜치 설정을 확인하고 GitHub 저장소 연동 증거 보완 (이메일 등 개인정보는 공개하지 않음)
+- [x] **Git 설정 및 VS Code 연동:** 사용자 이름·이메일·기본 브랜치 `main` 확인, VS Code 터미널에서 `git status`로 `main` 및 `origin/main` 동기화 확인 (이메일은 공개 캡처에 노출하지 않음)
 - [ ] **터미널 명령어 실습:** 과제에서 요구한 파일 복사(`cp`), 이동 및 이름 변경(`mv`), 삭제(`rm`), 파일 내용 확인, 빈 파일 생성 결과를 실제 실행 기록과 대조
 - [ ] **디렉터리 권한:** 디렉터리 권한 변경 전·후 결과 추가 (현재는 파일 권한 중심으로 기록됨)
-- [ ] **컨테이너 접속 방식:** `docker attach`와 `docker exec`의 차이 및 사용 상황 설명 추가
-- [ ] **Bind Mount 검증:** 호스트 파일을 수정한 전·후 내용과 컨테이너에서 변경 내용이 반영되는지 확인한 결과 정리
-- [ ] **두 번째 트러블슈팅:** 기존 포트 충돌 사례와 별개인 문제 해결 사례를 실제 실행하고 원인·조치·검증 결과 기록
-- [x] **Dockerfile 커스텀 기능 추가:** Ubuntu 이미지에 환경 변수와 샘플 파일 생성 기능을 추가 (새 Docker 이미지의 재빌드 및 실행 검증은 미완료)
+- [x] **컨테이너 접속 방식:** `docker attach`와 `docker exec`의 차이 및 사용 상황 설명 추가
+- [x] **Bind Mount 검증:** 호스트 `index.html`에 테스트 문구를 추가한 뒤 컨테이너에서 `Bind Mount Update Verified!`가 표시되는 것을 확인하고 원본 복구
+- [x] **두 번째 트러블슈팅:** 컨테이너 이름 중복 오류를 재현하고 새 이름 `biomta-mount-test`로 컨테이너 생성 성공
+- [x] **Dockerfile 커스텀 기능 추가 및 검증:** Ubuntu 이미지에 환경 변수와 샘플 파일 생성 기능을 추가하고 로컬 재빌드·실행 결과 확인
 - [x] **README 환경 정보 정정:** Windows CMD와 Docker Desktop 기준으로 정리하고, 예시 명령과 실제 실행 결과를 구분
 
 > 보완 작업은 기존에 업로드된 캡처와 기록을 우선 활용합니다. 이미 확인된 실습을 반복하거나 같은 캡처를 다시 요구하지 않으며, 실제로 부족한 항목만 추가합니다.
+
+---
+
+### 2026-11-04 추가 실습 검증 기록
+
+#### 사용자 정의 이미지 재빌드 및 실행
+
+실행 명령:
+
+```cmd
+docker build -t biomta-app:latest .
+docker run --rm biomta-app:latest bash -c "echo $APP_NAME && cat /app/hello.txt"
+```
+
+실제 출력:
+
+```text
+Biomta
+Hello Biomta Docker!
+```
+
+#### Git 및 VS Code 연동
+
+- `git status`: `On branch main`, `Your branch is up to date with 'origin/main'`, `nothing to commit, working tree clean`
+- `git config --global --list`: Git 사용자 이름과 이메일 설정 확인
+- `git config --global init.defaultBranch`: `main`
+- VS Code에서 저장소 폴더를 열고 통합 터미널에서 `git status` 실행 확인
+
+#### Windows 파일 읽기 전용 속성 확인
+
+PowerShell에서 `attrib +R .\\test.txt` 실행 후 `attrib .\\test.txt` 결과에 `R`이 표시되는 것을 확인했습니다. `attrib -R .\\test.txt`로 원상 복구한 뒤 `R` 표시가 사라지는 것을 확인했습니다. 이는 파일 속성 변경 실습이며, NTFS ACL 권한 변경이나 디렉터리 권한 변경을 의미하지는 않습니다.
+
+#### Bind Mount 호스트 파일 변경 확인
+
+마운트 설정 확인 결과:
+
+```text
+Type: bind
+Source: C:\\Users\\AONINNI\\Desktop\\biomta/index.html
+Destination: /usr/share/nginx/html/index.html
+RW: true
+```
+
+호스트의 `index.html`에 `<p>Bind Mount Update Verified!</p>`를 추가한 뒤 컨테이너에서 아래 명령으로 같은 문구가 표시되는 것을 확인했습니다.
+
+```powershell
+docker exec biomta-mount cat /usr/share/nginx/html/index.html
+```
+
+검증 후 백업해 둔 `index_backup.html`을 이용해 원본 `index.html`을 복구했습니다.
+
+#### 두 번째 트러블슈팅: 컨테이너 이름 중복
+
+문제 재현 명령:
+
+```powershell
+docker run --name biomta-mount nginx
+```
+
+실제 오류:
+
+```text
+Conflict. The container name "/biomta-mount" is already in use
+```
+
+원인은 기존 `biomta-mount` 컨테이너가 같은 이름을 사용 중이었기 때문입니다. 기존 컨테이너를 삭제하거나 중지하지 않고 다음 명령으로 새 이름을 지정해 해결했습니다.
+
+```powershell
+docker run -d --name biomta-mount-test nginx
+```
+
+실제 실행 결과 컨테이너 ID가 반환되어 생성 성공을 확인했습니다.
 
 ---
 
