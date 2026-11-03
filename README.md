@@ -21,7 +21,8 @@
 $ pwd
 /c/Users/User/Desktop/biomta
 
-$mkdir -p src backup$ touch README.md test.txt
+mkdir -p src backup
+touch README.md test.txt
 
 $ ls -la
 total 8
@@ -40,7 +41,8 @@ $ rm -rf backup/
 
 ### 1. 파일 및 디렉토리 생성
 ```bash
-$mkdir -p src backup$ touch README.md test.txt
+mkdir -p src backup
+touch README.md test.txt
 $ ls -la
 total 8
 drwxr-xr-x 1 User 197121 0 Nov  2 09:10 .
@@ -75,23 +77,23 @@ $ ls -l script.sh
 ### 1. Docker 버전 확인
 ```bash
 $ docker --version
-Docker version 27.x.x, build ...
+실제 설치 버전은 아래 Client/Server Version 결과(29.9.2)를 기준으로 확인합니다.
 ## 🐳 Docker 버전 및 데몬 상태 검증 (항목 #3)
 
 ### 1. Docker 버전 확인
 ```bash
 $ docker --version
-Docker version 27.x.x, build ...
+실제 설치 버전은 아래 Client/Server Version 결과(29.9.2)를 기준으로 확인합니다.
 ## Docker 버전 및 데몬 상태 확인 증거
 
 ### 1. 명령어 입력 및 출력 결과
-\`\`\`bash
+```bash
 docker --version
 docker info
-\`\`\`
+```
 
 ### 2. 실행 결과 화면 (출력 내용)
-\`\``text
+```text
 Client:
  Version:    29.9.2
  Context:    desktop-linux
@@ -112,12 +114,12 @@ Server:
  ## Docker hello-world 실행 증거
 
 ### 1. 실행 명령어
-\`\`\`bash
+```bash
 docker run hello-world
-\`\`\`
+```
 
 ### 2. 실행 결과 출력 (로그)
-\`\``text
+```text
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 
@@ -153,25 +155,25 @@ For more examples and ideas, visit:
 ## Docker 컨테이너 및 이미지 목록 증거
 
 ### 1. 컨테이너 목록 (`docker ps -a`)
-\`\`\`text
+```text
 CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                     PORTS     NAMES
 6d1758250f78   hello-world   "/hello"   3 minutes ago    Exited (0) 3 minutes ago             hopeful_hodgkin
 ab3db06a60df   hello-world   "/hello"   9 minutes ago    Exited (0) 9 minutes ago             sleepy_shannon
-\`\`\`
+```
 
 ### 2. 이미지 목록 (`docker images`)
-\`\`\`text
+```text
 IMAGE               ID             DISK USAGE     CONTENT SIZE    EXTRA
 hello-world:latest  c567b231f656   25.9kB         9.49kB          U
 ## Docker 커스텀 이미지 빌드 증거 (`docker build`)
 
 ### 1. 빌드 실행 명령어
-\`\`\`bash
+```bash
 docker build -t biomta-app:latest .
-\`\`\`
+```
 
 ### 2. 빌드 실행 결과 (로그)
-\`\``text
+```text
 [+] Building 11.0s (7/7) FINISHED    docker:desktop-linux
  => [internal] load build definition from Dockerfile                          0.0s
  => [1/3] FROM docker.io/library/ubuntu:latest                               6.2s
@@ -182,15 +184,15 @@ docker build -t biomta-app:latest .
  ## 호스트 포트 접속 증거 (`curl` / 브라우저)
 
 ### 1. 포트 매핑 실행 명령어 (`-p 8080:80`)
-\`\`\`bash
+```bash
 docker run -d -p 8080:80 --name web-test nginx
-\`\`\`
+```
 
 ### 2. 접속 테스트 명령어 및 출력 결과 (`curl http://localhost:8080`)
-\`\`\`bash
+```bash
 curl http://localhost:8080
-\`\`\`
-\`\``text
+```
+```text
 <!DOCTYPE html>
 <html>
 <head>
@@ -210,22 +212,22 @@ font-family: Tahoma, Verdana, Arial, sans-serif; }
 ## 볼륨 마운트 및 데이터 지속성 증거 (호스트 디렉토리 마운트 방식)
 
 ### 1. 호스트 폴더 마운트 컨테이너 실행 및 디렉토리 생성 후 파일 작성
-\`\`\`bash
+```bash
 docker run -d -v "$(pwd):/app" --name volume-test alpine sleep 3600
 docker exec -it volume-test sh -c "mkdir -p /app && echo 'Hello Biomta Volume Persistence' > /app/persistence.txt"
-\`\`\`
+```
 
 ### 2. 컨테이너 삭제 후 동일한 폴더로 새 컨테이너 재시작
-\`\`\`bash
+```bash
 docker rm -f volume-test
 docker run -d -v "$(pwd):/app" --name volume-test-new alpine sleep 3600
-\`\`\`
+```
 
 ### 3. 데이터 보존 확인 결과 (`cat`)
-\`\`\`bash
+```bash
 docker exec -it volume-test-new cat /app/persistence.txt
-\`\`\`
-\`\``text
+```
+```text
 Hello Biomta Volume Persistence
 ## 🚀 도커 환경 재현 가이드 (Reproducibility Guide)
 
@@ -242,18 +244,18 @@ Hello Biomta Volume Persistence
 ### 2. 단계별 재현 및 검증 절차
 
 #### 단계 ①: 저장소 클론 및 프로젝트 폴더 이동
-\`\`\`bash
+```bash
 git clone https://github.com/biomta5977/biomta.git
 cd biomta
-\`\`\`
+```
 
 #### 단계 ②: 커스텀 Docker 이미지 빌드
 Dockerfile을 이용해 `biomta-app` 이미지를 빌드합니다.
-\`\`\`bash
+```bash
 docker build -t biomta-app:latest .
-\`\`\`
+```
 **[빌드 성공 출력 예시]**
-\`\``text
+```text
 [+] Building 11.0s (7/7) FINISHED    docker:desktop-linux
  => [internal] load build definition from Dockerfile
  => [1/3] FROM docker.io/library/ubuntu:latest
@@ -261,16 +263,16 @@ docker build -t biomta-app:latest .
  => [3/3] RUN echo 'Hello Biomta'
  => exporting to image
  => => naming to docker.io/library/biomta-app:latest
-\`\``
+```
 
 #### 단계 ③: 호스트 포트 매핑 테스트 (Nginx 웹 서버)
 호스트의 `8080`번 포트와 컨테이너의 `80`번 포트를 연결하여 웹 서비스를 실행합니다.
-\`\`\`bash
+```bash
 docker run -d -p 8080:80 --name web-test nginx
 curl http://localhost:8080
-\`\`\`
+```
 **[`curl` 출력 예시]**
-\`\``text
+```text
 <!DOCTYPE html>
 <html>
 <head>
@@ -281,12 +283,12 @@ curl http://localhost:8080
 <p>If you see this page, nginx is successfully installed and working.</p>
 </body>
 </html>
-\`\``
+```
 *(테스트 완료 후 정리: `docker rm -f web-test`)*
 
 #### 단계 ④: 볼륨 마운트 및 데이터 지속성 테스트
 호스트 디렉토리를 마운트하여 컨테이너를 삭제해도 데이터가 안전하게 유지되는지 검증합니다.
-\`\`\`bash
+```bash
 # 1. 볼륨 마운트 컨테이너 실행 및 테스트 파일 생성
 docker run -d -v "$(pwd):/app" --name volume-test alpine sleep 3600
 docker exec -it volume-test sh -c "mkdir -p /app && echo 'Hello Biomta Volume Persistence' > /app/persistence.txt"
@@ -297,11 +299,11 @@ docker run -d -v "$(pwd):/app" --name volume-test-new alpine sleep 3600
 
 # 3. 데이터 지속성 확인 (cat)
 docker exec -it volume-test-new cat /app/persistence.txt
-\`\`\`
+```
 **[데이터 지속성 확인 출력 예시]**
-\`\``text
+```text
 Hello Biomta Volume Persistence
-\`\``
+```
 *(테스트 완료 후 정리: `docker rm -f volume-test-new`)*
 ## 💡 도커 이미지(Image)와 컨테이너(Container)의 개념 및 변경 흐름
 
@@ -352,51 +354,51 @@ Hello Biomta Volume Persistence
 ### 1. 포트 점유 프로세스 확인 (`lsof` 또는 `netstat`)
 
 #### ① macOS / Linux 환경 (`lsof`)
-\`\`\`bash
+```bash
 # 특정 포트(예: 8080)를 사용 중인 프로세스와 PID 확인
 lsof -i :8080
-\`\`\`
+```
 
 #### ② Windows / Linux 공통 (`netstat`)
-\`\`\`bash
+```bash
 # 리눅스 / Git Bash 환경
 netstat -ano | grep 8080
 
 # 윈도우 명령 프롬프트(CMD) 환경
 netstat -ano | findstr 8080
-\`\`\`
+```
 *(명령어 실행 결과 출력된 목록의 맨 오른쪽에 표시되는 숫자가 **PID(프로세스 ID)**입니다.)*
 
 ---
 
 ### 2. 프로세스 상세 정보 확인 (`ps`)
 확인한 PID를 통해 이 프로세스가 어떤 프로그램인지 상세히 조회합니다.
-\`\`\`bash
+```bash
 # Linux / macOS
 ps -ef | grep <PID>
-\`\`\`
+```
 
 ---
 
 ### 3. 프로세스 강제 종료 및 포트 해제 (`kill` / `taskkill`)
 
 #### ① macOS / Linux / Git Bash 환경 (`kill`)
-\`\`\`bash
+```bash
 # 정상 종료 (SIGTERM)
 kill <PID>
 
 # 응답이 없을 경우 강제 종료 (SIGKILL)
 kill -9 <PID>
-\`\`\`
+```
 
 #### ② Windows 일반 CMD / PowerShell 환경 (`taskkill`)
-\`\`\`cmd
+```cmd
 taskkill /f /pid <PID>
-\`\`\`
+```
 
 #### ③ Windows Git Bash 환경 (`MSYS_NO_PATHCONV`)
 Git Bash에서 경로 왜곡 오류(`잘못된 인수/옵션`)가 발생할 경우 아래와 같이 접두어를 붙여 실행합니다.
-\`\`\`bash
+```bash
 MSYS_NO_PATHCONV=1 taskkill /f /pid <PID>
 ## 💾 데이터 손실 방지 및 저장소 관리 대안 (Volume vs Bind Mount & Backup)
 
@@ -420,14 +422,14 @@ MSYS_NO_PATHCONV=1 taskkill /f /pid <PID>
 중요한 데이터(DB 등)가 담긴 도커 볼륨은 장애 발생 시 데이터 손실을 막기 위해 주기적으로 백업해야 합니다.
 
 #### ① 도커 볼륨 데이터를 아카이브(tar) 파일로 백업하기
-\`\`\`bash
+```bash
 # 1. 볼륨(my_volume)의 데이터를 임시 컨테이너를 통해 압축하여 백업 파일(backup.tar)로 추출
 docker run --rm -v my_volume:/volume -v $(pwd):/backup alpine tar -czf /backup/backup.tar -C /volume .
-\`\`\`
+```
 * *Verification:* 현재 디렉토리(`$(pwd)`)에 `backup.tar` 파일이 정상적으로 생성되었는지 확인합니다.
 
 #### ② 백업 파일로부터 볼륨 복원하기 (Restore)
-\`\`\`bash
+```bash
 # 1. 빈 볼륨 생성
 docker volume create restored_volume
 
@@ -480,6 +482,8 @@ docker run --rm -v restored_volume:/volume -v $(pwd):/backup alpine tar -xzf /ba
 - **검증 명령 (포트 점유 프로세스 확인)**:
   ```cmd
   netstat -ano | findstr 8080
+
+```
 
 ### Docker 웹 서버 실행 결과
 ![Docker 웹 서버 실행 화면](05_docker_web_server.png)
