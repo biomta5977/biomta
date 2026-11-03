@@ -740,8 +740,8 @@ git version 2.56.0.windows.4
 현재 제출된 README와 로컬 실습 결과를 대조한 보완 현황입니다. 완료한 항목은 실제 실행 결과를 확인한 뒤 체크했습니다.
 
 - [x] **Git 설정 및 VS Code 연동:** 사용자 이름·이메일·기본 브랜치 `main` 확인, VS Code 터미널에서 `git status`로 `main` 및 `origin/main` 동기화 확인 (이메일은 공개 캡처에 노출하지 않음)
-- [ ] **터미널 명령어 실습:** 과제에서 요구한 파일 복사(`cp`), 이동 및 이름 변경(`mv`), 삭제(`rm`), 파일 내용 확인, 빈 파일 생성 결과를 실제 실행 기록과 대조
-- [ ] **디렉터리 권한:** 디렉터리 권한 변경 전·후 결과 추가 (현재는 파일 권한 중심으로 기록됨)
+- [x] **터미널 명령어 실습:** PowerShell에서 파일 작성·복사·이름 변경·내용 확인·빈 파일 생성·삭제를 실제 실행하고 임시 폴더 정리 완료
+- [x] **디렉터리 권한:** Ubuntu 컨테이너에서 디렉터리 권한 `755` 확인 후 `chmod 700` 적용 및 변경 결과 확인
 - [x] **컨테이너 접속 방식:** `docker attach`와 `docker exec`의 차이 및 사용 상황 설명 추가
 - [x] **Bind Mount 검증:** 호스트 `index.html`에 테스트 문구를 추가한 뒤 컨테이너에서 `Bind Mount Update Verified!`가 표시되는 것을 확인하고 원본 복구
 - [x] **두 번째 트러블슈팅:** 컨테이너 이름 중복 오류를 재현하고 새 이름 `biomta-mount-test`로 컨테이너 생성 성공
@@ -800,6 +800,50 @@ docker exec biomta-mount cat /usr/share/nginx/html/index.html
 
 검증 후 백업해 둔 `index_backup.html`을 이용해 원본 `index.html`을 복구했습니다.
 
+#### 디렉터리 권한 변경 실습
+
+Ubuntu 기반 사용자 정의 이미지에서 테스트 디렉터리를 만들고 권한을 확인한 뒤 `chmod 700`으로 변경했습니다.
+
+실행 명령:
+
+```powershell
+docker run --rm biomta-app:latest bash -c "mkdir -p /app/permission-test && ls -ld /app/permission-test"
+docker run --rm biomta-app:latest bash -c "mkdir -p /app/permission-test && chmod 700 /app/permission-test && ls -ld /app/permission-test"
+```
+
+실제 확인 결과:
+
+```text
+변경 전: drwxr-xr-x ... /app/permission-test (755)
+변경 후: drwx------ ... /app/permission-test (700)
+```
+
+컨테이너는 `--rm` 옵션으로 실행 후 자동 삭제했으며, 호스트 PC의 권한 설정은 변경하지 않았습니다.
+
+#### PowerShell 파일 관리 명령어 실습
+
+저장소 내부에 임시 `terminal-practice` 폴더를 만들어 아래 작업을 실제 수행했습니다.
+
+```powershell
+New-Item -ItemType Directory -Path .\\terminal-practice -Force
+Set-Content .\\terminal-practice\\sample.txt "Biomta terminal practice"
+Copy-Item .\\terminal-practice\\sample.txt .\\terminal-practice\\sample-copy.txt
+Rename-Item .\\terminal-practice\\sample-copy.txt renamed.txt
+Get-Content .\\terminal-practice\\renamed.txt
+New-Item -ItemType File .\\terminal-practice\\empty.txt
+Remove-Item .\\terminal-practice\\sample.txt
+Get-ChildItem .\\terminal-practice
+Remove-Item .\\terminal-practice -Recurse -Force
+```
+
+실제 확인 결과:
+
+- `Get-Content` 출력: `Biomta terminal practice`
+- 복사한 파일을 `renamed.txt`로 이름 변경한 뒤 목록에서 확인
+- `empty.txt`가 크기 0바이트인 빈 파일로 생성된 것을 확인
+- 원본 `sample.txt` 삭제 후 남은 파일 목록 확인
+- 마지막에 임시 폴더 전체를 삭제해 저장소 작업 폴더를 정리
+
 #### 두 번째 트러블슈팅: 컨테이너 이름 중복
 
 문제 재현 명령:
@@ -845,7 +889,7 @@ Windows CMD 기준 명령 예시:
 | 파일 내용 확인 | `type test.txt` | 파일 내용 출력 |
 | 파일 삭제 | `del test-renamed.txt` | 파일 삭제 |
 
-> 위 명령은 과제에서 요구하는 작업을 설명하는 예시입니다. 실제 수행 증거는 별도로 확인해야 합니다. 삭제 명령은 대상 파일을 확인한 뒤 실행합니다.
+> 2026-11-04 PowerShell에서 임시 폴더를 이용해 파일 생성·복사·이름 변경·내용 확인·빈 파일 생성·삭제를 실제 수행했습니다. 삭제 명령은 대상 파일을 확인한 뒤 실행했습니다.
 
 ### 파일 및 디렉터리 권한
 
@@ -859,7 +903,7 @@ chmod 755 /app
 ls -ld /app
 ```
 
-위 명령은 디렉터리 권한 변경 예시이며, 현재 제출 자료에는 실제 변경 전·후 결과가 아직 확인되지 않았습니다.
+2026-11-04 Ubuntu 컨테이너에서 `/app/permission-test`의 기본 권한 `755`를 확인하고 `chmod 700` 적용 후 `drwx------`로 변경된 결과를 실제 확인했습니다.
 
 ### Docker 컨테이너 접속 방식: attach와 exec
 
