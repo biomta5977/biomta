@@ -261,7 +261,10 @@ PING biomta-web (172.18.0.2): 56 data bytes
 
 **결과:** 3개 패킷을 보내 3개 모두 수신했고, 패킷 손실률은 0%였습니다. 같은 사용자 정의 네트워크에 연결된 컨테이너끼리 이름으로 통신할 수 있음을 확인했습니다.
 
-> 실행 증거 캡처 파일은 GitHub 저장소에 추가한 뒤 아래에 연결합니다.
+### Docker 네트워크 실습 결과 캡처
+
+![Docker 네트워크 연결 테스트 결과](07_docker_network.png)
+
 
 ---
 
@@ -381,6 +384,6 @@ docker run -d -p 8081:80 --name web-test-8081 nginx
 - [ ] `05_docker_web_server.png`가 저장소에 존재하는지 확인
 - [ ] GitHub README 화면에서 이미지가 정상 표시되는지 확인
 - [ ] Named Volume 실습 결과 캡처 추가
-- [ ] Docker 네트워크 실습 결과 캡처 파일을 저장소에 업로드하고 README에 연결
+- [x] Docker 네트워크 실습 결과 캡처 업로드 및 README 연결
 - [ ] 트러블슈팅 실제 검증 및 조치 결과 추가
 
