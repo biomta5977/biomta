@@ -135,7 +135,11 @@ docker build -t biomta-app:latest .
 docker images
 ```
 
-> 참고: 이전 README에 있던 빌드 로그는 예시 형태로 정리했습니다. 실제 빌드 성공을 증명하려면 본인 PC에서 명령을 실행한 터미널 화면을 캡처해 첨부하세요.
+**실제 빌드 기록 확인:** `docker history biomta-app:latest` 명령으로 `WORKDIR /app` 및 `RUN echo 'Hello Biomta'` 빌드 단계를 확인했습니다.
+
+### Docker 이미지 빌드 기록 캡처
+
+![Docker 이미지 빌드 기록](04_docker_image_build.png)
 
 ---
 
