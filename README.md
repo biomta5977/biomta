@@ -607,7 +607,28 @@ docker images
 
 ---
 
-## 21. 제출 전 최종 확인
+## 21. 실행 중인 Docker 컨테이너 목록 확인 실습
+
+현재 실행 중인 컨테이너 목록을 확인했습니다.
+
+**실행 명령어**
+
+```cmd
+docker ps
+```
+
+**실제 확인 결과**
+- 실행 중인 컨테이너 5개 확인
+- Ubuntu 기반 `awesome_ellis`와 Nginx 컨테이너 4개 확인
+- 포트 매핑: 8080, 8081, 8082
+
+### Docker 컨테이너 목록 확인 결과 캡처
+
+![Docker 컨테이너 목록 확인 결과](17_docker_ps.png)
+
+---
+
+## 22. 제출 전 최종 확인
 
 - [x] README의 제목과 실습 설명 확인
 - [x] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
@@ -625,4 +646,5 @@ docker images
 - [x] Docker 이미지 상세 정보 확인 결과 캡처 업로드 및 README 연결
 - [x] Docker 시스템 정보 확인 결과 캡처 업로드 및 README 연결
 - [x] Docker 이미지 목록 확인 결과 캡처 업로드 및 README 연결
+- [x] 실행 중인 Docker 컨테이너 목록 캡처 업로드 및 README 연결
 
