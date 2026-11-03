@@ -480,7 +480,32 @@ docker stats --no-stream
 
 ---
 
-## 16. 제출 전 최종 확인
+## 16. Docker Hello World 실행 실습
+
+Docker가 정상적으로 설치되고 컨테이너를 실행할 수 있는지 확인했습니다.
+
+**실행 명령어**
+
+```cmd
+docker run --rm hello-world
+```
+
+**실제 실행 결과**
+
+```text
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+```
+
+Docker 클라이언트와 데몬의 통신, Docker Hub 이미지 다운로드, 컨테이너 생성 및 실행, 실행 결과 출력까지 정상적으로 완료됐습니다. `--rm` 옵션으로 실행이 끝난 컨테이너는 자동 삭제됩니다.
+
+### Docker Hello World 실행 결과 캡처
+
+![Docker Hello World 실행 결과](12_hello_world.png)
+
+---
+
+## 17. 제출 전 최종 확인
 
 - [x] README의 제목과 실습 설명 확인
 - [x] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
@@ -493,4 +518,5 @@ docker stats --no-stream
 - [x] Ubuntu 컨테이너 실행 및 기본 명령어 실습 결과 캡처 업로드 및 README 연결
 - [x] Docker 컨테이너 로그 확인 결과 캡처 업로드 및 README 연결
 - [x] Docker 컨테이너 사용량 확인 결과 캡처 업로드 및 README 연결
+- [x] Docker Hello World 실행 결과 캡처 업로드 및 README 연결
 
