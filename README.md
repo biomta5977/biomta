@@ -587,7 +587,27 @@ docker info
 
 ---
 
-## 20. 제출 전 최종 확인
+## 20. Docker 이미지 목록 확인 실습
+
+로컬에 다운로드된 Docker 이미지 목록을 확인했습니다.
+
+**실행 명령어**
+
+```cmd
+docker images
+```
+
+**실제 확인 결과**
+- 이미지 7개 확인
+- alpine, biomta-app, biomta-web, busybox, hello-world, nginx:alpine, nginx:latest
+
+### Docker 이미지 목록 확인 결과 캡처
+
+![Docker 이미지 목록 확인 결과](16_docker_images.png)
+
+---
+
+## 21. 제출 전 최종 확인
 
 - [x] README의 제목과 실습 설명 확인
 - [x] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
@@ -604,4 +624,5 @@ docker info
 - [x] Docker exec 컨테이너 내부 명령어 실행 결과 캡처 업로드 및 README 연결
 - [x] Docker 이미지 상세 정보 확인 결과 캡처 업로드 및 README 연결
 - [x] Docker 시스템 정보 확인 결과 캡처 업로드 및 README 연결
+- [x] Docker 이미지 목록 확인 결과 캡처 업로드 및 README 연결
 
