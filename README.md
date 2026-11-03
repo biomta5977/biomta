@@ -650,7 +650,29 @@ docker ps -a
 
 ---
 
-## 23. 제출 전 최종 확인
+## 23. Git 버전 확인 실습
+
+Windows CMD에서 Git 버전을 확인했습니다.
+
+**실행 명령어**
+
+```cmd
+git --version
+```
+
+**실제 확인 결과**
+
+```text
+git version 2.56.0.windows.4
+```
+
+### Git 버전 확인 결과 캡처
+
+![Git 버전 확인 결과](19_git_version.png)
+
+---
+
+## 24. 제출 전 최종 확인
 
 - [x] README의 제목과 실습 설명 확인
 - [x] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
