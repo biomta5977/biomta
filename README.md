@@ -531,7 +531,34 @@ docker exec awesome_ellis cat /app/test.txt
 
 ---
 
-## 18. 제출 전 최종 확인
+## 18. Docker 이미지 상세 정보 확인 실습
+
+직접 만든 Docker 이미지 `biomta-app:latest`의 상세 설정을 확인했습니다.
+
+**실행 명령어**
+
+```cmd
+docker image inspect biomta-app:latest
+```
+
+**실제 확인 결과**
+
+- 이미지 이름: `biomta-app:latest`
+- 운영체제: Linux
+- 아키텍처: amd64
+- 작업 디렉터리: `/app`
+- 기본 실행 명령: `/bin/bash`
+- 이미지 크기: 약 159MB
+
+**결과:** `docker image inspect` 명령으로 직접 만든 이미지의 운영체제, 작업 디렉터리, 기본 실행 명령 및 크기를 확인했습니다.
+
+### Docker 이미지 상세 정보 확인 결과 캡처
+
+![Docker 이미지 상세 정보 확인 결과](14_docker_image_inspect.png)
+
+---
+
+## 19. 제출 전 최종 확인
 
 - [x] README의 제목과 실습 설명 확인
 - [x] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
@@ -546,4 +573,5 @@ docker exec awesome_ellis cat /app/test.txt
 - [x] Docker 컨테이너 사용량 확인 결과 캡처 업로드 및 README 연결
 - [x] Docker Hello World 실행 결과 캡처 업로드 및 README 연결
 - [x] Docker exec 컨테이너 내부 명령어 실행 결과 캡처 업로드 및 README 연결
+- [x] Docker 이미지 상세 정보 확인 결과 캡처 업로드 및 README 연결
 
