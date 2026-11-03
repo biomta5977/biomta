@@ -435,7 +435,28 @@ docker run --rm -it biomta-app:latest
 
 ---
 
-## 14. 제출 전 최종 확인
+
+## 14. Docker 컨테이너 로그 확인 실습
+
+실행 중인 Nginx 컨테이너 `biomta-container`의 로그를 확인했습니다.
+
+**실행 명령어**
+
+```cmd
+docker logs biomta-container
+```
+
+**실제 확인 결과**
+- Nginx 웹 서버가 정상적으로 시작된 기록을 확인했습니다.
+- `Configuration complete; ready for start up` 메시지를 확인했습니다.
+- `GET /` 요청이 HTTP 상태 코드 `200`으로 처리된 것을 확인했습니다.
+- `favicon.ico` 요청은 파일이 없어 `404`가 기록됐지만, 웹 서버 실행 자체에는 문제가 없습니다.
+
+### Docker 로그 확인 결과 캡처
+
+![Docker 컨테이너 로그 확인 결과](10_docker_logs.png)
+
+## 15. 제출 전 최종 확인
 
 - [x] README의 제목과 실습 설명 확인
 - [x] Dockerfile, script.sh, test.txt 등 필요한 파일 확인
@@ -446,4 +467,5 @@ docker run --rm -it biomta-app:latest
 - [x] 트러블슈팅 실제 검증 및 조치 결과 README에 기록
 - [x] 트러블슈팅 오류 및 해결 과정 화면 캡처 업로드 및 README 연결
 - [x] Ubuntu 컨테이너 실행 및 기본 명령어 실습 결과 캡처 업로드 및 README 연결
+- [x] Docker 컨테이너 로그 확인 결과 캡처 업로드 및 README 연결
 
